@@ -127,27 +127,27 @@ class QuestionModelTests(TestCase):
 
     def test_pub_recently_w_future_q(self): 
         """
-        Assure that was_pub_recently() returns False for a question 
+        Assure that was_published_recently() returns False for a question 
         published in the future.
         """
         future_date = timezone.now() + datetime.timedelta(days=30)
         future_q = Question(pub_date=future_date)
-        self.assertIs(future_q.was_pub_recently(), False)
+        self.assertIs(future_q.was_published_recently(), False)
 
     def test_pub_recently_w_old_q(self):
         """
-        Assure that was_pub_recently returns False for a question 
+        Assure that was_published_recently returns False for a question 
         published too far in the past.
         """
         past_date = timezone.now() - datetime.timedelta(days=1, seconds=1)
         q = Question(pub_date=past_date)
-        self.assertIs(q.was_pub_recently(), False)
+        self.assertIs(q.was_published_recently(), False)
 
     def test_pub_recently_w_recent_q(self):
         """
-        Assure that was_pub_recently returns True for a question
+        Assure that was_published_recently returns True for a question
         published in the last 24 hours.
         """
         recent_date = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
         q = Question(pub_date = recent_date)
-        self.assertIs(q.was_pub_recently(), True)
+        self.assertIs(q.was_published_recently(), True)
